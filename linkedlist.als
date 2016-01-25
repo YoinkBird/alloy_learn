@@ -23,7 +23,7 @@ pred show(){
 }
 
 
---run show for 1 List, 3 Node, 4 Int
+--run show for 1 List, 3 Node, 2 Int
 
 -- a: cardinality constraints
 /* notes:
@@ -68,9 +68,9 @@ pred RepOk(This: List) { // class invariant for List
 }
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
 // TODO:  ints = { -2, -1, 0, 1 }
---run RepOk for 1 List, 3 Node, 4 Int
+--run RepOk for 1 List, 3 Node, 2 Int
 let validInts = -2 + -1 + 0 + 1
---run RepOk for 1 List, 3 Node, 4 Int
+--run RepOk for 1 List, 3 Node, 2 Int
 
 -- c: Specifying the count method
 -- Implement the following predicate Count and the run command as described below:
@@ -83,7 +83,8 @@ pred Count(This: List, x: Int, result: Int) {
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-run Count for 1 List, 3 Node, 4 Int
+// TODO
+run Count for 1 List, 3 Node, 2 Int
 
 /*
 -- d: Specifying the contains method
