@@ -58,7 +58,7 @@ pred Loop(This: List) {
     one n:This.header.*link | n in n.link
 }
 pred Sorted(This: List) {
-  // <This> has elements in sorted order (‘<=’)
+  // <This> has elements in sorted order (â€˜<=â€™)
   all n:Node | n.elem <= n.link.elem
 }
 
@@ -70,15 +70,15 @@ pred RepOk(This: List) { // class invariant for List
 // TODO:  ints = { -2, -1, 0, 1 }
 --run RepOk for 1 List, 3 Node, 4 Int
 let validInts = -2 + -1 + 0 + 1
-run RepOk for 1 List, 3 Node, 4 Int
+--run RepOk for 1 List, 3 Node, 4 Int
 
 -- c: Specifying the count method
 -- Implement the following predicate Count and the run command as described below:
 pred Count(This: List, x: Int, result: Int) {
   // count correctly returns the number of occurences of <x> in <This>
   // <result> reprsents the return value of count
-  let ints = #{Node.elem}-- | x in This.header.*elem and 
-  all n:This.header.*link | n.elem
+--  let ints = #{Node.elem}-- | x in This.header.*elem and 
+  all n:This.header.*link | x in n.elem and x in result
   RepOk[This] // assume This is a valid list
 }
 
