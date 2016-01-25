@@ -69,7 +69,7 @@ pred RepOk(This: List) { // class invariant for List
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
 // TODO:  ints = { -2, -1, 0, 1 }
 --run RepOk for 1 List, 3 Node, 2 Int
-let validInts = -2 + -1 + 0 + 1
+
 --run RepOk for 1 List, 3 Node, 2 Int
 
 -- c: Specifying the count method
