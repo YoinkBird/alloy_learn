@@ -26,12 +26,12 @@ fact DisconnectedNodesHaveSelfLoops {
 --   all n:Node - (BinaryTree.root.*(left + right))
 
    -- TODO: syntax error!
-   all n:Node | n !in (BinaryTree.root.*(left+right)) -- | n in n.left
+   all n:Node | n !in (BinaryTree.root.*(left+right)) => n in (n.left + n.right)
 
 }
 
 -- TODO
--- run Acyclic for 1 BinaryTree, 2 Node
+run Acyclic for 1 BinaryTree, 4 Node
 
 -- (b) Isomorphism
 -- TODO
