@@ -57,9 +57,9 @@ using Alloy Analyzer's textual format (i.e., Txt in the GUI) as comments in your
 Add the following declaration to your model to introduce four nodes, namely
 N0, N1, N2, and N3, in the model:
   one sig N0, N1, N2, N3 extends Node {}
-Implement the following fact LinearOrder to define a linear ordering on the 4 nodes as described in the comments:
+Implement the following fact 'LinearOrder' to define a linear ordering
+  on the 4 nodes as described in the comments:
 */
-/*
 one sig N0, N1, N2, N3 extends Node {}
 one sig Ordering { // model a linear order on nodes
   first: Node, // the first node in the linear order
