@@ -78,17 +78,18 @@ pred Count(This: List, x: Int, result: Int) {
   // count correctly returns the number of occurences of <x> in <This>
   // <result> reprsents the return value of count
 --  let ints = #{Node.elem}-- | x in This.header.*elem and 
-  all n:This.header.*link | x in n.elem and x in result
+  #{n:This.header.*link | x in n.elem} = result
   RepOk[This] // assume This is a valid list
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
 // TODO
---run Count for 1 List, 3 Node, 2 Int
+run Count for 1 List, 3 Node, 2 Int
 
 
 -- d: Specifying the contains method
 -- Implement the following predicate Contains and the run command as described below:
+/*
 abstract sig Boolean {}
 one sig True, False extends Boolean {}
 pred Contains(This: List, x: Int, result: Boolean) {
@@ -97,5 +98,6 @@ pred Contains(This: List, x: Int, result: Boolean) {
   all n:This.header.*link.elem | x in n
   RepOk[This] // assume This is a valid list
 }
+*/
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-run Contains for 1 List, 3 Node, 2 Int
+--run Contains for 1 List, 3 Node, 2 Int
