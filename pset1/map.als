@@ -82,7 +82,7 @@ fact LinearOrder {
   }
 
 }
-run Acyclic for 1 BinaryTree
+run Acyclic
 
 -- (d) Non-isomorphic enumeration
 /*
