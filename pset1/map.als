@@ -15,11 +15,23 @@ pred Acyclic(t: BinaryTree) {
   }
 }
 -- (a) Connectivity
+-- TODO
 --Implement the following fact as described in the comments:
 fact DisconnectedNodesHaveSelfLoops {
   // the left and right fields of a node that is not in the
   // tree point to the node itself
+--   all n: BinaryTree.root.*left | n in n.left and n in n.right
+
+--    all n:(BinaryTree.root.*(left + right)) | n in n.left
+--   all n:Node - (BinaryTree.root.*(left + right))
+
+   -- TODO: syntax error!
+   all n:Node | n !in (BinaryTree.root.*(left+right)) -- | n in n.left
+
 }
+
+-- TODO
+-- run Acyclic for 1 BinaryTree, 2 Node
 
 -- (b) Isomorphism
 -- TODO
