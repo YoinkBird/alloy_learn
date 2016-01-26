@@ -70,10 +70,16 @@ fact LinearOrder {
   // the first node in the linear order is N0; and
   // the four nodes are ordered as [N0, N1, N2, N3]
 --  one o:Ordering, n0:N0, n1:N1 | n0 in o.first and n1 in n0.(Ordering.order)
+  /*
   all n:Node | n in n.(Ordering.order)
+  */
   all n0:N0,n1:N1 | n1 in n0.(left + right)
   all n1:N1,n2:N2 | n2 in n1.(left + right)
   all n2:N2,n3:N3 | n3 in n2.(left + right)
+  all o:Ordering{
+    o.first = N0
+    o.order = N0 -> N1 + N1 -> N2 + N2 -> N3
+  }
 
 }
 run Acyclic for 1 BinaryTree
