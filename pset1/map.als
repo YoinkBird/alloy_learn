@@ -90,18 +90,45 @@ Use the linear order defined by the signature Ordering and the fact LinearOrder
 for the four nodes to implement the following predicate NonIsomorphicTrees as
 described in the comments:
 */
+/*custom*/
 /*
+ensure that there is a node in the binary tree for testing the pred Symmetry Breaking
+*/
+fact {
+-- Note: if instance 'one sig' you can do this: 
+--  DO NOT USE: -- N0 in BinaryTree.root
+-- Note: if thingy not declared as 'one' you have to create one really quick
+--  one n: Node | n in BinaryTree.root
+}
+
+fact SymmetryBreakingFail {
+  // test 
+  // N0: force it to be right:
+  // N1: force it to be false:
+--  N0 in BinaryTree.root
+}
+/*</custom>*/
+
 pred SymmetryBreaking(t: BinaryTree) {
   // if t has a root node, it is the first node according to the linear order; and
+  all n : t.root | n in Ordering.first
   // a "pre-order" traversal of the nodes in t visits them according to the linear order
+  all n : Node | n->n.(left) in Ordering.order
+  all n : Node | n->n.(right) in Ordering.order
 
+  /*
+  all n: t.root.*(left + right) {
+    -- proof of concept
+    #(n) = #(Ordering.order)
+  }
+  */
 }
+run SymmetryBreaking
 pred NonIsomorphicTrees(t: BinaryTree) {
   Acyclic[t]
     SymmetryBreaking[t]
 }
 run NonIsomorphicTrees // enumerates non-isomorphic binary trees with up to 4 nodes
-*/
 /*
 Verify that your implementation is correct by executing the command run
 NonIsomorphicTrees and checking that it enumerates exactly 23 binary trees -
