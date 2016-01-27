@@ -10,8 +10,8 @@ abstract sig Node {
 pred Acyclic(t: BinaryTree) {
   all n: t.root.*(left + right) {
     n !in n.^(left + right)
-      no n.(left) & n.(right)
-      lone n.~(left + right)
+    no n.(left) & n.(right)
+    lone n.~(left + right)
   }
 }
 -- (a) Connectivity
