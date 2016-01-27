@@ -103,16 +103,22 @@ one sig Ordering { // model a linear order on nodes
   order: Node -> Node // for each node n, n.(Ordering.order) represents the
            // node (if any) immediately after n in order
 }
+/*notes
+-- TREE structure
+..n0
+.|..\
+n1  n3
+|.\
+n2
+-- TREE linearorder:
+n0->n1->n2->n3
+*/
 fact LinearOrder {
   // the first node in the linear order is N0; and
   // the four nodes are ordered as [N0, N1, N2, N3]
---  one o:Ordering, n0:N0, n1:N1 | n0 in o.first and n1 in n0.(Ordering.order)
-  /*
-  all n:Node | n in n.(Ordering.order)
-  */
-  all n0:N0,n1:N1 | n1 in n0.(left + right)
-  all n1:N1,n2:N2 | n2 in n1.(left + right)
-  all n2:N2,n3:N3 | n3 in n2.(left + right)
+  all n0:N0, n1:N1 | n1 in n0.left
+  all n0:N0, n3:N3 | n3 in n0.right
+  all n1:N1, n2:N2 | n2 in n1.left
   all o:Ordering{
     o.first = N0
     o.order = N0 -> N1 + N1 -> N2 + N2 -> N3
