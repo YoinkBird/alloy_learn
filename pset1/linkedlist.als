@@ -89,15 +89,14 @@ run Count for 1 List, 3 Node, 2 Int
 
 -- d: Specifying the contains method
 -- Implement the following predicate Contains and the run command as described below:
-/*
 abstract sig Boolean {}
 one sig True, False extends Boolean {}
 pred Contains(This: List, x: Int, result: Boolean) {
   // contains returns true if and only if <x> is in <This>
   // <result> represents the return value of contains
   all n:This.header.*link.elem | x in n
+  /*** v template ***/
   RepOk[This] // assume This is a valid list
 }
-*/
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
---run Contains for 1 List, 3 Node, 2 Int
+run Contains for 1 List, 3 Node, 2 Int
