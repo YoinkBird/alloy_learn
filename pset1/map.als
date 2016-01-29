@@ -123,15 +123,21 @@ pred HardCodedPreorderDoNotUse(t: BinaryTree){
   all n0:N0, n3:N3 | n3 in n0.(left+right)
   all n1:N1, n2:N2 | n2 in n1.(left+right)
 }
+pred GeneratePreorderMapping_1(t: BinaryTree){
+  /* broken v
+  forces a linear tree
+  */
+  all n : Node | n->n.(left) in Ordering.order
+  all n : Node | n->n.(right) in Ordering.order
+}
 pred SymmetryBreaking(t: BinaryTree) {
   // BAD: initial idea
   --HardCodedPreorderDoNotUse[t]
+  // BAD: only generates linear tree
+  --GeneratePreorderMapping_1[t]
 
   // if t has a root node, it is the first node according to the linear order; and
   all n : t.root | n in Ordering.first
-  // a "pre-order" traversal of the nodes in t visits them according to the linear order
-  all n : Node | n->n.(left) in Ordering.order
-  all n : Node | n->n.(right) in Ordering.order
 
   /*
   all n: t.root.*(left + right) {
