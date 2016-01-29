@@ -130,6 +130,17 @@ pred GeneratePreorderMapping_1(t: BinaryTree){
   all n : Node | n->n.(left) in Ordering.order
   all n : Node | n->n.(right) in Ordering.order
 }
+pred PreOrderRule_1(t: BinaryTree){
+  // whenever there are two child-nodes
+  /*
+  some nL:Node.(left), nR:Node.(right){
+    // n1 always left (preorder)
+    some n1:N1, nR:N0.(right) | n1 in N0.(left) and n1 !in nR
+    --  some n1:N1, nR:N0.(right) | n1 !in nR
+    --  some n2:N2 | n2 in N1.(left)
+  }
+  */
+}
 pred NodesAlwaysParents(t: BinaryTree) {
   // NOTE: seemingly good rule!
   // But hard-coding is almost never a good idea
@@ -150,6 +161,8 @@ pred SymmetryBreaking(t: BinaryTree) {
   // seems to work
   // commenting out to try other things
   --NodesAlwaysParents[t]
+  // stub - not sure if good
+  --PreOrderRule_1[t]
 
   // if t has a root node, it is the first node according to the linear order; and
   all n : t.root | n in Ordering.first
