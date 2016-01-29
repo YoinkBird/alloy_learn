@@ -166,6 +166,7 @@ pred SymmetryBreaking(t: BinaryTree) {
 
   // if t has a root node, it is the first node according to the linear order; and
   all n : t.root | n in Ordering.first
+  // a "pre-order" traversal of the nodes in t visits them according to the linear order
 
   /*
   all n: t.root.*(left + right) {
@@ -179,7 +180,7 @@ pred NonIsomorphicTrees(t: BinaryTree) {
   Acyclic[t]
     SymmetryBreaking[t]
 }
-run NonIsomorphicTrees // enumerates non-isomorphic binary trees with up to 4 nodes
+run NonIsomorphicTrees for 4 Node// enumerates non-isomorphic binary trees with up to 4 nodes
 /*
 Verify that your implementation is correct by executing the command run
 NonIsomorphicTrees and checking that it enumerates exactly 23 binary trees -
