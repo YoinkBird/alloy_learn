@@ -83,9 +83,8 @@ n0->n1->n2->n3
 fact LinearOrder {
   // the first node in the linear order is N0; and
   // the four nodes are ordered as [N0, N1, N2, N3]
-  all n0:N0, n1:N1 | n1 in n0.left
-  all n0:N0, n3:N3 | n3 in n0.right
-  all n1:N1, n2:N2 | n2 in n1.left
+
+  // ta_note: that is all you need for your linear order.
   all o:Ordering{
     o.first = N0
     o.order = N0 -> N1 + N1 -> N2 + N2 -> N3
@@ -119,7 +118,15 @@ fact SymmetryBreakingFail {
 }
 /*</custom>*/
 
+pred HardCodedPreorderDoNotUse(t: BinaryTree){
+  all n0:N0, n1:N1 | n1 in n0.(left+right)
+  all n0:N0, n3:N3 | n3 in n0.(left+right)
+  all n1:N1, n2:N2 | n2 in n1.(left+right)
+}
 pred SymmetryBreaking(t: BinaryTree) {
+  // BAD: initial idea
+  --HardCodedPreorderDoNotUse[t]
+
   // if t has a root node, it is the first node according to the linear order; and
   all n : t.root | n in Ordering.first
   // a "pre-order" traversal of the nodes in t visits them according to the linear order
