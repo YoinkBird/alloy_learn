@@ -20,7 +20,7 @@ pred Acyclic(t: BinaryTree) {
 fact DisconnectedNodesHaveSelfLoops {
   // the left and right fields of a node that is not in the
   // tree point to the node itself
-  all n:Node | n !in (BinaryTree.root.*(left+right)) => n in (n.left + n.right)
+  all n:Node | n !in (BinaryTree.root.*(left+right)) => n in (n.left) and n in (n.right)
 }
 
 -- (b) Isomorphism
@@ -154,6 +154,15 @@ pred PreOrderRule_1(t: BinaryTree){
 --  NodeHasLeft implies NodeHasLeft else NodeHasRight
 --  NodeHasLeft[t] implies NodeHasLeft[t] else NodeHasRight[t]
 
+-- syntax ok
+--  all n:t.root.*(left+right) | #{n.left} = 0 => n->n.right in n->n.(Ordering.order)
+  // for all nodes in tree, the preorder is defined such that:
+  // ensure that any node with only node.right and no node.left has a mapping node->node.right in Ordering.order
+  // ensure that any node with node.left has a mapping node->node.left in Ordering.order
+  all n:t.root.*(left+right) {
+    #{n.left} = 0 and #{n.right} = 1 => n->n.right in n->n.(Ordering.order)
+    #{n.left} = 1                    => n->n.left   in n->n.(Ordering.order)
+  }
 }
 pred NodesAlwaysParents(t: BinaryTree) {
   // NOTE: seemingly good rule!
