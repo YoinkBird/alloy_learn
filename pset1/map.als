@@ -33,47 +33,24 @@ If such instances appear as solutions, write two distinct instances
 using Alloy Analyzer's textual format (i.e., Txt in the GUI) as comments in your model:
 [1]Consider only the part of the instance reachable from the binary tree atom.
 */
-/*
--- force BinaryTree to have a root node
+// narrow down field of possibilities
 fact {
+  // force BinaryTree to have a root node
   one n: Node | n in BinaryTree.root
+  // ensure that all nodes are in a BinaryTree
+  --all n:Node | n in (BinaryTree.root.*(left+right))
+  no n:Node | n !in (BinaryTree.root.*(left+right))
 }
 -- ensure fixed number of nodes; ?perhaps?: tree with 3 nodes cannot be isomorphic to tree with 2 nodes
-run Acyclic for 1 BinaryTree, 4 Node
-*/
+run Acyclic for 1 BinaryTree, exactly 3 Node
 
 /*
    Isomorphic instances for Question 2 (b):
    Instance #1:
----INSTANCE---
-integers={}
-univ={BinaryTree$0, Node$0, Node$1, Node$2, Node$3}
-Int={}
-seq/Int={}
-String={}
-none={}
-this/BinaryTree={BinaryTree$0}
-this/BinaryTree<:root={BinaryTree$0->Node$3}
-this/Node={Node$0, Node$1, Node$2, Node$3}
-this/Node<:left={Node$3->Node$2}
-this/Node<:right={Node$1->Node$0, Node$2->Node$1}
-skolem $Acyclic_t={BinaryTree$0}
-
+   TODO
 
    Instance #2:
----INSTANCE---
-integers={}
-univ={BinaryTree$0, Node$0, Node$1, Node$2, Node$3}
-Int={}
-seq/Int={}
-String={}
-none={}
-this/BinaryTree={BinaryTree$0}
-this/BinaryTree<:root={BinaryTree$0->Node$3}
-this/Node={Node$0, Node$1, Node$2, Node$3}
-this/Node<:left={Node$0->Node$2, Node$1->Node$1, Node$2->Node$3}
-this/Node<:right={Node$0->Node$0, Node$1->Node$0, Node$2->Node$2}
-skolem $Acyclic_t={BinaryTree$0}
+   TODO
 
 */
 
