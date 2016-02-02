@@ -36,10 +36,10 @@ using Alloy Analyzer's textual format (i.e., Txt in the GUI) as comments in your
 // narrow down field of possibilities
 fact {
   // force BinaryTree to have a root node
-  one n: Node | n in BinaryTree.root
+--  one n: Node | n in BinaryTree.root
   // ensure that all nodes are in a BinaryTree
   --all n:Node | n in (BinaryTree.root.*(left+right))
-  no n:Node | n !in (BinaryTree.root.*(left+right))
+--  no n:Node | n !in (BinaryTree.root.*(left+right))
 }
 -- ensure fixed number of nodes; ?perhaps?: tree with 3 nodes cannot be isomorphic to tree with 2 nodes
 run Acyclic for 1 BinaryTree, exactly 3 Node
@@ -152,7 +152,8 @@ pred PreOrderRule_1(t: BinaryTree){
   --all n:Node | n.(left) | n->n.(left) in Ordering.order
 --  some n:Node,nNext:Node | nNext in n.(left) | n->nNext in Ordering.order
 --  NodeHasLeft implies NodeHasLeft else NodeHasRight
-  NodeHasLeft[t] implies NodeHasLeft[t] else NodeHasRight[t]
+--  NodeHasLeft[t] implies NodeHasLeft[t] else NodeHasRight[t]
+
 }
 pred NodesAlwaysParents(t: BinaryTree) {
   // NOTE: seemingly good rule!
@@ -170,7 +171,7 @@ pred SymmetryBreaking(t: BinaryTree) {
   // BAD: initial idea
   --HardCodedPreorderDoNotUse[t]
   // BAD: only generates linear tree
-  GeneratePreorderMapping_1[t]
+--  GeneratePreorderMapping_1[t]
   // seems to work
   // commenting out to try other things
   --NodesAlwaysParents[t]
