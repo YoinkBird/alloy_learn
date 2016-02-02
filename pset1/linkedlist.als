@@ -94,7 +94,9 @@ one sig True, False extends Boolean {}
 pred Contains(This: List, x: Int, result: Boolean) {
   // contains returns true if and only if <x> is in <This>
   // <result> represents the return value of contains
-  all n:This.header.*link.elem | x in n
+  --all n:This.header.*link.elem | x in n
+  --let result = n:This.header.*link.elem | x in n
+  x in This.header.*link.elem = result
   /*** v template ***/
   RepOk[This] // assume This is a valid list
 }
