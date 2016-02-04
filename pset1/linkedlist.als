@@ -52,8 +52,8 @@ loop-list: singly-linked list which is empty
 or non-empty and its last node has a pointer back to itself
 */
 pred Loop(This: List) {
-// <This> is a valid loop-list
-  -- empty
+  // <This> is a valid loop-list
+  -- empty or one link points to itself
   no This.header or
     one n:This.header.*link | n in n.link
 }
@@ -67,10 +67,7 @@ pred RepOk(This: List) { // class invariant for List
   Sorted[This]
 }
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-// TODO:  ints = { -2, -1, 0, 1 }
---run RepOk for 1 List, 3 Node, 2 Int
-
---run RepOk for 1 List, 3 Node, 2 Int
+run RepOk for 1 List, 3 Node, 2 Int
 
 -- c: Specifying the count method
 -- Implement the following predicate Count and the run command as described below:
@@ -83,7 +80,6 @@ pred Count(This: List, x: Int, result: Int) {
 }
 
 // scope: #List <= 1, #Node <= 3, ints = { -2, -1, 0, 1 }
-// TODO
 run Count for 1 List, 3 Node, 2 Int
 
 
