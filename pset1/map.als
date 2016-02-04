@@ -37,23 +37,59 @@ using Alloy Analyzer's textual format (i.e., Txt in the GUI) as comments in your
  </requirements> 
 */
 // narrow down field of possibilities
-fact {
+pred IsomorphismPrereq {
   // force BinaryTree to have a root node
---  one n: Node | n in BinaryTree.root
+  one n: Node | n in BinaryTree.root
   // ensure that all nodes are in a BinaryTree
-  --all n:Node | n in (BinaryTree.root.*(left+right))
+  all n:Node | n in (BinaryTree.root.*(left+right))
 --  no n:Node | n !in (BinaryTree.root.*(left+right))
+  Acyclic[BinaryTree]
 }
--- ensure fixed number of nodes; ?perhaps?: tree with 3 nodes cannot be isomorphic to tree with 2 nodes
-run Acyclic for 1 BinaryTree, exactly 3 Node
+run IsomorphismPrereq for 1 BinaryTree
 
 /*
    Isomorphic instances for Question 2 (b):
    Instance #1:
-   TODO
+---INSTANCE---
+integers={}
+univ={BinaryTree$0, N0$0, N1$0, N2$0, N3$0, Ordering$0}
+Int={}
+seq/Int={}
+String={}
+none={}
+this/BinaryTree={BinaryTree$0}
+this/BinaryTree<:root={BinaryTree$0->N3$0}
+this/Node={N0$0, N1$0, N2$0, N3$0}
+this/Node<:left={N3$0->N1$0}
+this/Node<:right={N2$0->N0$0, N3$0->N2$0}
+this/N0={N0$0}
+this/N1={N1$0}
+this/N2={N2$0}
+this/N3={N3$0}
+this/Ordering={Ordering$0}
+this/Ordering<:first={Ordering$0->N0$0}
+this/Ordering<:order={Ordering$0->N0$0->N1$0, Ordering$0->N1$0->N2$0, Ordering$0->N2$0->N3$0}
 
    Instance #2:
-   TODO
+---INSTANCE---
+integers={}
+univ={BinaryTree$0, N0$0, N1$0, N2$0, N3$0, Ordering$0}
+Int={}
+seq/Int={}
+String={}
+none={}
+this/BinaryTree={BinaryTree$0}
+this/BinaryTree<:root={BinaryTree$0->N3$0}
+this/Node={N0$0, N1$0, N2$0, N3$0}
+this/Node<:left={N3$0->N2$0}
+this/Node<:right={N1$0->N0$0, N3$0->N1$0}
+this/N0={N0$0}
+this/N1={N1$0}
+this/N2={N2$0}
+this/N3={N3$0}
+this/Ordering={Ordering$0}
+this/Ordering<:first={Ordering$0->N0$0}
+this/Ordering<:order={Ordering$0->N0$0->N1$0, Ordering$0->N1$0->N2$0, Ordering$0->N2$0->N3$0}
 
 */
 
