@@ -139,12 +139,19 @@ for the four nodes to implement the following predicate NonIsomorphicTrees as
 described in the comments:
 */
 /*custom*/
-fact SymmetryBreakingFail {
+assert SymmetryBreakingPass {
   // test 
-  // N0: force it to be right:
-  // N1: force it to be false:
---  N0 in BinaryTree.root
+  // N0: force it to be correct:
+  N0 in BinaryTree.root
+  NonIsomorphicTrees[BinaryTree]
 }
+assert SymmetryBreakingFail {
+  // N1: force it to be false:
+  N1 in BinaryTree.root
+  NonIsomorphicTrees[BinaryTree]
+}
+check SymmetryBreakingPass
+check SymmetryBreakingFail
 /*</custom>*/
 
 pred PreOrderRule_1(t: BinaryTree){
