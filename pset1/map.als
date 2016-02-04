@@ -18,20 +18,23 @@ pred Acyclic(t: BinaryTree) {
 -- TODO
 --Implement the following fact as described in the comments:
 fact DisconnectedNodesHaveSelfLoops {
+  // <requirements> 
   // the left and right fields of a node that is not in the
   // tree point to the node itself
+  // </requirements> 
   all n:Node | n !in (BinaryTree.root.*(left+right)) => n in (n.left) and n in (n.right)
 }
+run Acyclic
 
 -- (b) Isomorphism
--- TODO
-/*
+/* <requirements> 
 With the fact DisconnectedNodesHaveSelfLoops included in your model,
 if you execute the command 'run Acyclic' and enumerate the instances,
 do any two of these instances represent isomorphic binary trees[1] as solutions to the constraint Acyclic? 
 If such instances appear as solutions, write two distinct instances
 using Alloy Analyzer's textual format (i.e., Txt in the GUI) as comments in your model:
 [1]Consider only the part of the instance reachable from the binary tree atom.
+ </requirements> 
 */
 // narrow down field of possibilities
 fact {
@@ -100,16 +103,6 @@ for the four nodes to implement the following predicate NonIsomorphicTrees as
 described in the comments:
 */
 /*custom*/
-/*
-ensure that there is a node in the binary tree for testing the pred Symmetry Breaking
-*/
-fact {
--- Note: if instance 'one sig' you can do this: 
---  DO NOT USE: -- N0 in BinaryTree.root
--- Note: if thingy not declared as 'one' you have to create one really quick
---  one n: Node | n in BinaryTree.root
-}
-
 fact SymmetryBreakingFail {
   // test 
   // N0: force it to be right:
@@ -118,44 +111,7 @@ fact SymmetryBreakingFail {
 }
 /*</custom>*/
 
-pred HardCodedPreorderDoNotUse(t: BinaryTree){
-  all n0:N0, n1:N1 | n1 in n0.(left+right)
-  all n0:N0, n3:N3 | n3 in n0.(left+right)
-  all n1:N1, n2:N2 | n2 in n1.(left+right)
-}
-pred GeneratePreorderMapping_1(t: BinaryTree){
-  /* broken v
-  forces a linear tree
-  */
-  -- too much! generates all possibilities of nodes
-  --all n : Node | (n->n.(left) + n->n.(right)) = Ordering.order
-
-  all n: t.root.*(left + right) | (n->n.(left) + n->n.(right)) = Ordering.order
---  all n : Node | n->n.(right) in Ordering.order
-}
-pred NodeHasLeft(t: BinaryTree){
-  some n:Node | n->n.(left) = n->n.(Ordering.order)
-}
-pred NodeHasRight(t: BinaryTree){
-  all n:Node | n->n.(right) = n->n.(Ordering.order)
-}
 pred PreOrderRule_1(t: BinaryTree){
-  // whenever there are two child-nodes
-  /*
-  some nL:Node.(left), nR:Node.(right){
-    // n1 always left (preorder)
-    some n1:N1, nR:N0.(right) | n1 in N0.(left) and n1 !in nR
-    --  some n1:N1, nR:N0.(right) | n1 !in nR
-    --  some n2:N2 | n2 in N1.(left)
-  }
-  */
-  --all n:Node | n.(left) | n->n.(left) in Ordering.order
---  some n:Node,nNext:Node | nNext in n.(left) | n->nNext in Ordering.order
---  NodeHasLeft implies NodeHasLeft else NodeHasRight
---  NodeHasLeft[t] implies NodeHasLeft[t] else NodeHasRight[t]
-
--- syntax ok
---  all n:t.root.*(left+right) | #{n.left} = 0 => n->n.right in n->n.(Ordering.order)
   // for all nodes in tree, the preorder is defined such that:
   // ensure that any node with only node.right and no node.left has a mapping node->node.right in Ordering.order
   // ensure that any node with node.left has a mapping node->node.left in Ordering.order
@@ -164,26 +120,7 @@ pred PreOrderRule_1(t: BinaryTree){
     #{n.left} = 1                    => n->n.left   in n->n.(Ordering.order)
   }
 }
-pred NodesAlwaysParents(t: BinaryTree) {
-  // NOTE: seemingly good rule!
-  // But hard-coding is almost never a good idea
-  // define nodes which are always parents
-  all n1:N1 {
-    n1 !in N2.(left+right)
-    n1 !in N3.(left+right)
-  }
-  all n2:N2 {
-    n2 !in N3.(left+right)
-  }
-}
 pred SymmetryBreaking(t: BinaryTree) {
-  // BAD: initial idea
-  --HardCodedPreorderDoNotUse[t]
-  // BAD: only generates linear tree
---  GeneratePreorderMapping_1[t]
-  // seems to work
-  // commenting out to try other things
-  --NodesAlwaysParents[t]
   // stub - not sure if good
   PreOrderRule_1[t]
 
