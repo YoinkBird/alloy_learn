@@ -157,12 +157,11 @@ pred PreOrderRule_1(t: BinaryTree){
   }
 }
 pred SymmetryBreaking(t: BinaryTree) {
-  // stub - not sure if good
-  PreOrderRule_1[t]
-
   // if t has a root node, it is the first node according to the linear order; and
   all n : t.root | n in Ordering.first
+
   // a "pre-order" traversal of the nodes in t visits them according to the linear order
+  PreOrderRule_1[t]
 
   /*
   all n: t.root.*(left + right) {
@@ -174,7 +173,7 @@ pred SymmetryBreaking(t: BinaryTree) {
 run SymmetryBreaking
 pred NonIsomorphicTrees(t: BinaryTree) {
   Acyclic[t]
-    SymmetryBreaking[t]
+  SymmetryBreaking[t]
 }
 run NonIsomorphicTrees for 4 Node// enumerates non-isomorphic binary trees with up to 4 nodes
 /*
