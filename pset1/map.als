@@ -45,7 +45,7 @@ pred IsomorphismPrereq {
 --  no n:Node | n !in (BinaryTree.root.*(left+right))
   Acyclic[BinaryTree]
 }
-run IsomorphismPrereq for 1 BinaryTree
+--run IsomorphismPrereq for 1 BinaryTree
 
 /*
    Isomorphic instances for Question 2 (b):
