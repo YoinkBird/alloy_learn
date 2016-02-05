@@ -159,8 +159,9 @@ pred PreOrderRule_1(t: BinaryTree){
   // ensure that any node with only node.right and no node.left has a mapping node->node.right in Ordering.order
   // ensure that any node with node.left has a mapping node->node.left in Ordering.order
   all n:t.root.*(left+right) {
-    #{n.left} = 0 and #{n.right} = 1 => n->n.right in n->n.(Ordering.order)
-    #{n.left} = 1                    => n->n.left   in n->n.(Ordering.order)
+    #{n.left} = 0 and #{n.right} = 1 => n.right = n.(Ordering.order)
+    #{n.left} = 1                    => n.left  = n.(Ordering.order)
+    #{n.left} = 1 and #{n.right} = 1 => n.right in n.left.*(left+right).(Ordering.order)
   }
 }
 pred SymmetryBreaking(t: BinaryTree) {
