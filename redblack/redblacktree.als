@@ -1,22 +1,23 @@
 module redBlackTree
-import integer
+--import integer
 sig Color {}
-partition static sig Red, Black ext Color {}
+sig Red, Black extends Color {}
 sig Entry {
-  key: option Integer,
+--  key: option Integer,
+  key: Int,
   color: Color,
-  left: option Entry,
-  right: option Entry,
-  parent: option Entry
+  left: Entry,
+  right: Entry,
+  parent: Entry
 }
-sig Root ext Entry {}
-static sig NIL ext Entry {} // models leaf nodes
+sig Root extends Entry {}
+sig NIL extends Entry {} // models leaf nodes
 
 fact ParentDefn {
   all e1, e2: Entry |
     e1 in e2.parent <=> e2 in e1.left + e1.right
 }
-fun HasNILChild(e: Entry) { NIL in e.left + e.right }
+fun HasNILChild[e: Entry]: Entry { NIL in e.left + e.right }
 
 fact RedBlackFacts {
   // every node is red or black -- holds by construction
