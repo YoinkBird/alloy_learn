@@ -37,7 +37,7 @@ fact BinaryTreeFacts {
   // root has no parent
   no Root.parent
   // acyclic
-  all e: Entry | e !in e.ˆ( ~parent)
+  all e: Entry | e !in e.^( ~parent)
   // unique children
   all e: Entry - NIL |
     e.left != e.right ||
