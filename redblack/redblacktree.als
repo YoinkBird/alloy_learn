@@ -17,7 +17,7 @@ fact ParentDefn {
   all e1, e2: Entry |
     e1 in e2.parent <=> e2 in e1.left + e1.right
 }
-fun HasNILChild[e: Entry]: Entry { NIL in e.left + e.right }
+--fun HasNILChild[e: Entry]: set Entry { NIL in e.left + e.right }
 
 fact RedBlackFacts {
   // every node is red or black -- holds by construction
@@ -27,10 +27,12 @@ fact RedBlackFacts {
   all e: Entry | e.color = Red =>
     (e.left + e.right).color = Black
   // paths from root to NIL have same # of black nodes
-  all e1, e2: Entry |
-    HasNILChild(e1) && HasNILChild(e2) =>
-      #(e1.*parent & Black. ~color) =
-        #(e2.*parent & Black. ~color)
+  all e1, e2: Root.*(left+right) |
+    (no e1.left || no e1.right) && (no e2.left || no e2.right) =>
+      #{ p: Root.*(left+right) | 
+         e1 in p.*(left+right) && p.color = Black} = 
+      #{ p: Root.*(left+right) | 
+         e2 in p.*(left+right) && p.color = Black}
 }
 
 fact BinaryTreeFacts {
@@ -57,3 +59,7 @@ fact SearchTreeFacts {
   all e: Entry - NIL |
     all er: e.right.*( ~parent) - NIL | e.key <= er.key
 }
+
+pred show(){
+}
+run show
